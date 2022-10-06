@@ -18,8 +18,7 @@ display_pic(binary_img,'Background Image Binary');
 %% testing image subtraction
 %{
 temporary - waits 5 seconds before taking another picture
-to test properly, you should put something in front of the camera in these
-5 seconds
+to test properly, you should 
 %}
 pause(5); %stop gap to manually change background
 img = snapshot(cam);
