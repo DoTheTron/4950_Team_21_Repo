@@ -8,18 +8,20 @@ cam = init_cam(webcamlist,USB_CAM_NAME);
 
 %% Capturing and Saving BG Image
 img = snapshot(cam);
-figure();
-imshow(img);
-title('Background Image Original');
+display_pic(img,'Background Image Original');
 
 %% Binary Image processing
 imwrite(img, bg_filename); %saves image to filename provided
+binary_img = im2bw(img);
+display_pic(binary_img,'Background Image Binary');
 
-%Image_Orig = imread(img);
-%Image_Background = imread('NoiseBackground.png');
-%[height,width,depth] = size(Image_Orig);
-%[height_b,width_b,depth_b] = size(Image_Background
-
+%% testing image subtraction
+pause(5); %temporary measure to manually change background
+img = snapshot(cam);
+display_pic(img,'new shot created');
+noise_removed = imread(bg_filename)-img;
+display_pic(noise_removed,'background - new image');
+display_pic(im2bw(noise_removed), 'noise removed binary');
 %% Init Program
 function prog_init()
     close all;
@@ -32,4 +34,10 @@ function cam_profile = init_cam(webcam_list,cam_name)
     %searches webcam list camera name provided, then returns camera struct
     cam_profile = webcam(find(contains(webcam_list,cam_name)));
     cam_profile.Brightness = 100; %scale brightness of image (idk what max val is -Uche)
+end
+%% Show any picture taken
+function display_pic(img,fig_title)
+    figure();
+    imshow(img);
+    title(fig_title);
 end
