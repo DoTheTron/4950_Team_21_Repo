@@ -1,6 +1,10 @@
 %% Definitions and Constants
 bg_filename = 'bg_img.png';
+sub_tst_img = 'subtracted_img.png';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
+[sub_height,sub_width,~] = size(sub_tst_img);
+
+%green threashold ~ 175
 
 %% ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
 prog_init();
@@ -21,12 +25,28 @@ temporary - waits 5 seconds before taking another picture
 to test properly, you should put something in front of the camera in these
 5 seconds
 %}
-pause(5); %stop gap to manually change background
+pause(30); %stop gap to manually change background
 img = snapshot(cam);
 display_pic(img,'new shot created');
-noise_removed = imread(bg_filename)-img;
+bg_OG = imread(bg_filename);
+noise_removed = bg_OG-img;
 display_pic(noise_removed,'background - new image');
 display_pic(im2bw(noise_removed), 'noise removed binary');
+
+%% Color correction and recognization
+imwrite(img,'correcting img.png');
+corrected_img = imread('correcting img.png');
+change_count = 0;
+for i = 1:480
+    for j= 1:640
+        if ( bg_OG(i,j,:)-img(i,j,:) < 150)
+            fprintf('intersting');
+            corrected_img(i,j,:) = [0,0,0];
+            change_count = change_count + 1;
+        end
+    end
+end
+display_pic(corrected_img,'wtf will happen?');
 %% Init Program
 function prog_init()
     close all;

@@ -1,6 +1,8 @@
 %% Definitions and Constants
 bg_filename = 'bg_img.png';
+sub_tst_img = 'subtracted_img.png';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
+[sub_height,sub_width,~] = size(sub_tst_img);
 
 %% ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
 prog_init();
@@ -18,14 +20,30 @@ display_pic(binary_img,'Background Image Binary');
 %% testing image subtraction
 %{
 temporary - waits 5 seconds before taking another picture
-to test properly, you should 
+to test properly, you should put something in front of the camera in these
+5 seconds
 %}
-pause(5); %stop gap to manually change background
+pause(30); %stop gap to manually change background
 img = snapshot(cam);
 display_pic(img,'new shot created');
-noise_removed = imread(bg_filename)-img;
+bg_OG = imread(bg_filename);
+noise_removed = bg_OG-img;
 display_pic(noise_removed,'background - new image');
 display_pic(im2bw(noise_removed), 'noise removed binary');
+
+%% Color correction and recognization
+cimwrite(img,'correcting img.png');
+
+for i = 1:sub_height
+    for j= 1:sub_width
+        if ( bg_OG(i,j,:)-img(i,j,:) > 2)
+            corrected_img(i,j) = img(i,j);
+        else
+            corrected_img(i,j) = 0;
+        end
+    end
+end
+display_pic(corrected_img,'wtf will happen?');
 %% Init Program
 function prog_init()
     close all;
