@@ -13,10 +13,11 @@ cam = init_cam(webcamlist,USB_CAM_NAME);
 
 %% Capturing and Saving BG Image
 %img = snapshot(cam);
+img = imread(bg_filename);
 display_pic(img,'Background Image Original');
 
 %% Binary Image processing
-imwrite(img, bg_filename); %saves image to filename provided
+%imwrite(img, bg_filename); %saves image to filename provided
 binary_img = im2bw(img);
 display_pic(binary_img,'Background Image Binary');
 
