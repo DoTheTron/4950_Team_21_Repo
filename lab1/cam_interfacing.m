@@ -34,19 +34,21 @@ display_pic(noise_removed,'background - new image');
 display_pic(im2bw(noise_removed), 'noise removed binary');
 
 %% Color correction and recognization
-imwrite(img,'correcting img.png');
+imwrite(noise_removed,'correcting img.png');
 corrected_img = imread('correcting img.png');
 change_count = 0;
 for i = 1:480
     for j= 1:640
-        if ( bg_OG(i,j,:)-img(i,j,:) < 150)
-            fprintf('intersting');
-            corrected_img(i,j,:) = [0,0,0];
+        if (corrected_img(i,j,1) > 50) || ...
+           (corrected_img(i,j,2) > 50) || ...
+           (corrected_img(i,j,3) > 50)
+       
+            corrected_img(i,j,:) = img(i,j,:);
             change_count = change_count + 1;
         end
     end
 end
-display_pic(corrected_img,'wtf will happen?');
+display_pic(corrected_img,'color corrected image');
 %% Init Program
 function prog_init()
     close all;
