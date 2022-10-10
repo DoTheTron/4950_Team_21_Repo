@@ -1,9 +1,9 @@
 %% Definitions and Constants
 bg_filename = 'bg_img.png';
-sub_tst_img = 'subtracted_img.png';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
-[sub_height,sub_width,~] = size(sub_tst_img);
-
+cam_width = 640;
+cam_height = 480;
+color_thresh = 50;
 %green threashold ~ 175
 
 %% ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
@@ -35,20 +35,10 @@ display_pic(im2bw(noise_removed), 'noise removed binary');
 
 %% Color correction and recognization
 imwrite(noise_removed,'correcting img.png');
-corrected_img = imread('correcting img.png');
-change_count = 0;
-for i = 1:480
-    for j= 1:640
-        if (corrected_img(i,j,1) > 50) || ...
-           (corrected_img(i,j,2) > 50) || ...
-           (corrected_img(i,j,3) > 50)
-       
-            corrected_img(i,j,:) = img(i,j,:);
-            change_count = change_count + 1;
-        end
-    end
-end
-display_pic(corrected_img,'color corrected image');
+pic_properties = struct('height',cam_height,'width',cam_width,'correction',color_thresh);
+color_isolated_img = isolate_colors('correcting img.png',pic_properties,img);
+display_pic(color_isolated_img,'color isolated image');
+
 %% Init Program
 function prog_init()
     close all;
@@ -67,4 +57,18 @@ function display_pic(img,fig_title)
     figure();
     imshow(img);
     title(fig_title);
+end
+%% Washer & color isolation
+function corrected_img = isolate_colors(file_to_correct,props,OG_img)
+    corrected_img = imread(file_to_correct);
+    for i = 1:props.height
+        for j= 1:props.width
+            if (corrected_img(i,j,1) > props.correction) || ...
+               (corrected_img(i,j,2) > props.correction) || ...
+               (corrected_img(i,j,3) > props.correction)
+           
+                corrected_img(i,j,:) = OG_img(i,j,:);
+            end
+        end
+    end
 end
