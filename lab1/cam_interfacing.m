@@ -1,4 +1,5 @@
 %% Definitions and Constants
+%adding comment
 bg_filename = 'bg_img.png';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
 cam_width = 640;
