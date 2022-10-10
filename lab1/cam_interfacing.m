@@ -12,7 +12,7 @@ prog_init();
 cam = init_cam(webcamlist,USB_CAM_NAME);
 
 %% Capturing and Saving BG Image
-img = snapshot(cam);
+%img = snapshot(cam);
 display_pic(img,'Background Image Original');
 
 %% Binary Image processing
@@ -26,7 +26,7 @@ temporary - waits 5 seconds before taking another picture
 to test properly, you should put something in front of the camera in these
 5 seconds
 %}
-pause(30); %stop gap to manually change background
+%pause(30); %stop gap to manually change background
 img = snapshot(cam);
 display_pic(img,'new shot created');
 bg_OG = imread(bg_filename);
