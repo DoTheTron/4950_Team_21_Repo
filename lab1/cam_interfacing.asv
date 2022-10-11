@@ -20,13 +20,13 @@ cam = init_cam(webcamlist,USB_CAM_NAME);
 
 %% Capturing and Saving BG Image
 %img = snapshot(cam);
-%imwrite(img,bg_filename);
+
 img = imread(bg_filename);
 display_pic(img,'Background Image Original');
 
 %% Binary Image processing
 %imwrite(img, bg_filename); %saves image to filename provided
-binary_img = im2bw(img,0.75);
+binary_img = im2bw(img);
 display_pic(binary_img,'Background Image Binary');
 
 %% testing image subtraction
@@ -42,13 +42,12 @@ bg_OG = imread(bg_filename);
 difference_img = bg_OG-img;
 imwrite(difference_img,difference_fname);
 display_pic(difference_img,'Difference');
-display_pic(im2bw(difference_img,0.2), 'Difference binary');
+display_pic(im2bw(difference_img), 'Difference binary');
 
 %% Color correction and recognization
 imwrite(difference_img,'correcting img.png');
 color_isolated_img = isolate_colors('correcting img.png',pic_properties,img);
 display_pic(color_isolated_img,'color isolated image');
-display_pic(im2bw(color_isolated_img,0.2),'color isolated binary image');
 
 %% Noise Removal
 
