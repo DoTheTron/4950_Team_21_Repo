@@ -1,4 +1,5 @@
 %% Definitions and Constants
+GUI_file = 'GUI_Correct.mlapp';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
 
 bg_filename = 'bg_img.png';
@@ -10,27 +11,29 @@ cam_width = 640;
 cam_height = 480;
 color_thresh = 30;
 
-%% ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
+%% main function begins
+%{
+% ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
 prog_init();
 cam = init_cam(webcamlist,USB_CAM_NAME);
 
-%% Capturing and Saving BG Image
+% Capturing and Saving BG Image
 img = snapshot(cam);
 imwrite(img,bg_filename);
 BG_img = imread(bg_filename);
 display_pic(BG_img,'Background Image Original');
 
-%% Image filtering
+% Image filtering
 new_state = snapshot(cam);
 imwrite(new_state,state_fname);
 display_pic(new_state,'Current Game State');
 
-%% Foreground Selection
+% Foreground Selection
 diff = BG_img - new_state;
 imwrite(diff,difference_fname);
 display_pic(diff,'Difference Image');
 
-%% Color correction and recognization
+% Color correction and recognization
 color_isolated_img = isolate_colors(difference_fname,color_thresh,state_fname);
 display_pic(color_isolated_img,'color isolated difference image');
 display_pic(im2bw(color_isolated_img,0.2),'color isolated binary image before filtering');
@@ -38,8 +41,17 @@ imwrite(im2bw(color_isolated_img,0.2),color_iso_bin);
 o_p_img = further_filter(color_iso_bin);
 display_pic(o_p_img,'Fully Processed Binary');
 
-%% Centroid location & angle
+% Centroid location & angle
 gameState = image_analyze(o_p_img,state_fname);
+%}
+
+%launch GUI
+gui_app = GUI_Correct();
+color_val = gui_app.ColorSelectDropDown.Value;
+while isvalid(gui_app)
+    color_val = gui_app.ColorSelectDropDown.Value;
+    pause(0.1);
+end
 
 %% Init Program
 function prog_init()
