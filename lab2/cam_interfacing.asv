@@ -12,7 +12,7 @@ cam_height = 480;
 color_thresh = 30;
 
 %% main function begins
-%{
+
 % ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
 prog_init();
 cam = init_cam(webcamlist,USB_CAM_NAME);
@@ -43,13 +43,17 @@ display_pic(o_p_img,'Fully Processed Binary');
 
 % Centroid location & angle
 gameState = image_analyze(o_p_img,state_fname);
-%}
+
 
 %launch GUI
 gui_app = GUI_Correct();
 color_val = gui_app.ColorSelectDropDown.Value;
+while isvalid(gui_app)
+    color_val = gui_app.ColorSelectDropDown.Value;
+    pause(0.1);
+end
 
-while()
+%% end main 
 %% Init Program
 function prog_init()
     close all;
@@ -57,19 +61,30 @@ function prog_init()
     clear;
     clear('cam');
 end
+
 %% Camera Init Function
 function cam_profile = init_cam(webcam_list,cam_name)
     %searches webcam list camera name provided, then returns camera struct
     cam_profile = webcam(find(contains(webcam_list,cam_name)));
     cam_profile.Brightness = 100; %scale brightness of image (idk what max val is -Uche)
 end
+
 %% Show any picture taken
 function display_pic(img,fig_title)
     figure();
     imshow(img);
     title(fig_title);
 end
+
 %% Washer & color isolation
+%{
+looks at each pixel of the difference image and checks it's RGB values
+if all RGB values are over the threshold (defined at top as 'color_thresh')
+then, that pixel from the difference image will be replaced with the same
+pixel from the original unfilterd image
+
+This results in a finer filtering tool than just using erosion and dilation
+%}
 function corrected_img = isolate_colors(file_to_correct,thresh,OG_img)
     corrected_img = imread(file_to_correct);
     orginal = imread(OG_img);
@@ -85,58 +100,15 @@ function corrected_img = isolate_colors(file_to_correct,thresh,OG_img)
         end
     end
 end
-%% prototype image filtering function
-function Image_Erode = image_filter(BG_img,new_snapshot,difference_pic)
-%% Read in Original and Background Images
-    Image_Orig = imread(new_snapshot);
-    Image_Background = imread(BG_img);
-    [height,width,~] = size(Image_Orig);
-    %[height_b,width_b,depth_b] = size(Image_Background);
-    figure(); %Figure 1
-    imshow(Image_Orig);
-    title('new img');
-    figure(); %Figure 2
-    imshow(Image_Background);
-    title('bg img');
-    %% Compute Background Subtraction
-    % Notes:
-    % This step is not required but helps with noisy images
-    % Save a background.png so you do not have to take a new image every run
-    Image_BackgroundSub = Image_Background - Image_Orig;
-    imwrite(Image_BackgroundSub,difference_pic);
-    figure(); %Figure 3
-    imshow(Image_BackgroundSub);
-    title('Background Subtraction Image');
-    %% Compute Binary Image for imageprops
-    Image_Binary = im2bw(Image_BackgroundSub,0.05);
-    % Check the image, notice blue stickers have ben classified as background
-    %% Fix Image to Compute Binary Image
-    Image_BackgroundSub2 = Image_BackgroundSub;
-    for i=1:height
-        for j=1:width
-            if (Image_BackgroundSub(i,j,1) > 2) || ...
-               (Image_BackgroundSub(i,j,2) > 2) || ...
-               (Image_BackgroundSub(i,j,3) > 2)
-                
-                %Will Show in Green
-                Image_BackgroundSub2(i,j,:) = [175,200,175];
-            end
-        end
-    end
-    Image_Binary2 = im2bw(Image_BackgroundSub2);
-    figure(); %Figure 4
-    imshow(Image_Binary2);
-    title('Binary Background Subtraction Image');
-    %% Erode Image
-    % Set Morphological Operation
-    SE = strel('disk',10);
-    Image_Erode = imerode(Image_Binary2, SE);
-    figure(); %Figure 5
-    imshow(Image_Erode);
-    title('Binary Image Erosion');
-end
 
 %% angle and location analysis
+%{
+takes the completely filtered image and identifies circlular centroids
+The number and location of each centroid is recorded and exported to the 
+state variable
+state variable contains color of shape at centroid, coordinate location on
+picture and angle with reference to gameboard
+%}
 function Image_Analysis = image_analyze(Filtered_img,og_fname)
     %% Call regionprops 
     Image_Orig = imread(og_fname);
@@ -180,6 +152,11 @@ function Image_Analysis = image_analyze(Filtered_img,og_fname)
 end
 
 %% final image filtering
+%{
+Further filters the finely filtered image through matlabs builtin erosion
+and dialtion tools. Outcome is a binary image contaiing circular regions
+where washers are located
+%}
 function filtered_img = further_filter(bin_pic)
     input_file = imread(bin_pic);
     SE = strel('disk',6);
