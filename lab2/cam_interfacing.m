@@ -50,6 +50,8 @@ gui_app = GUI_Correct();
 color_val = gui_app.ColorSelectDropDown.Value;
 while isvalid(gui_app)
     color_val = gui_app.ColorSelectDropDown.Value;
+    %Determine the closest color
+    %update motor position here
     pause(0.1);
 end
 
