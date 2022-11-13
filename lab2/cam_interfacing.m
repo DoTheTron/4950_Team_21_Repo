@@ -1,4 +1,5 @@
 %% Definitions and Constants
+SIM_file = 'motor_model_updated_F21_22b.slx';
 GUI_file = 'GUI_Correct.mlapp';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
 
@@ -6,6 +7,7 @@ bg_filename = 'bg_img.png';
 state_fname = 'present_game_state.png';
 difference_fname = 'difference.png';
 color_iso_bin = 'colo_bin.png';
+position_param = 0;
 
 cam_width = 640;
 cam_height = 480;
@@ -14,12 +16,13 @@ color_thresh = 30;
 %% main function begins
 
 % ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
-prog_init();
+prog_init();clea
 cam = init_cam(webcamlist,USB_CAM_NAME);
 
 % Capturing and Saving BG Image
-img = snapshot(cam);
-imwrite(img,bg_filename);
+%Uncomment next two commands to save new background image
+%img = snapshot(cam);
+%imwrite(img,bg_filename);
 BG_img = imread(bg_filename);
 display_pic(BG_img,'Background Image Original');
 
@@ -48,12 +51,17 @@ gameState = image_analyze(o_p_img,state_fname);
 %launch GUI
 gui_app = GUI_Correct();
 color_val = gui_app.ColorSelectDropDown.Value;
+set_param('motor_model_updated_F21_22b', 'SimulationCommand', 'start');     %start simulation
+rto = get_param(gcbh,'RuntimeObject');  %Get Motor Position
 while isvalid(gui_app)
     color_val = gui_app.ColorSelectDropDown.Value;
-    %Determine the closest color
-    %update motor position here
+    motor_angle = rto.InputPort(1).Data;                %motor position
+    desired_angle =                                     %Determine the closest color
+    set_param('motor_model_updated_F21_22b/desiredPosition','Value',int2str(desired_angle)); %update motor position here
     pause(0.1);
 end
+
+set_param('motor_model_updated_F21_22b', 'SimulationCommand', 'stop'); %stop simulation
 
 %% end main -- Functions and Descriptions Below
 
