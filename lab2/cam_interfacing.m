@@ -29,7 +29,7 @@ cam = init_cam(webcamlist,USB_CAM_NAME);
 %img = snapshot(cam);
 %imwrite(img,bg_filename);
 BG_img = imread(bg_filename);
-display_pic(BG_img,'Background Image Original');
+%display_pic(BG_img,'Background Image Original');
 
 % Image filtering
 new_state = snapshot(cam);
@@ -43,8 +43,6 @@ display_pic(diff,'Difference Image');
 
 % Color correction and recognization
 color_isolated_img = isolate_colors(difference_fname,color_thresh,state_fname);
-display_pic(color_isolated_img,'color isolated difference image');
-display_pic(im2bw(color_isolated_img,0.1),'color isolated binary image before filtering');
 imwrite(im2bw(color_isolated_img,0.1),color_iso_bin);
 o_p_img = further_filter(color_iso_bin);
 display_pic(o_p_img,'Fully Processed Binary');
@@ -56,16 +54,21 @@ gameState = image_analyze(o_p_img,state_fname);
 gui_app = GUI_Correct();
 color_val = gui_app.ColorSelectDropDown.Value;
 set_param(motor_input,'Value','0');
-pause(5);
 rto = get_param(gcbh,'RuntimeObject');  %Get current Motor Position
+pause(2);
 while isvalid(gui_app)
     color_val = gui_app.ColorSelectDropDown.Value;
-    motor_angle = round(rto.InputPort(1).Data);
-    desired_angle =  closest_color(color_val,gameState,motor_angle);
+    desired_angle =  closest_color(color_val,gameState,round(rto.InputPort(1).Data));
     set_param(motor_input,'Value',int2str(desired_angle)); %update motor position here
-    pause(10);
+    while ( abs(round(rto.InputPort(1).Data) - desired_angle) > 5 )
+        pause(0.5);
+    end
+    set_param(motor_input,'Value','0'); %reset motor position
+    while (strcmp(color_val,gui_app.ColorSelectDropDown.Value) ~= 1) 
+        pause(0.1);
+    end 
 end
-set_param(motor_input,'Value','0');               %reset motor position
+
 pause(2);
 set_param(SIM_file, 'SimulationCommand', 'stop'); %stop simulation
 
@@ -178,19 +181,16 @@ function filtered_img = further_filter(bin_pic)
     input_file = imread(bin_pic);
     SE = strel('disk',6);
     input_file = imerode(input_file, SE);
-    display_pic(input_file,'erosion 1');
     imwrite(input_file,bin_pic);
     
     SE = strel('disk',8);
     input_file = imread(bin_pic);
     input_file = imdilate(input_file, SE);
-    display_pic(input_file,'dilation 1');
     imwrite(input_file,bin_pic);
     input_file = imread(bin_pic);
     
     SE = strel('disk',5);
     filtered_img = imerode(input_file, SE);    
-    display_pic(filtered_img,'erosion 2'); 
 end
 
 %{
