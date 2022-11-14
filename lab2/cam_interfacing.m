@@ -1,5 +1,6 @@
 %% Definitions and Constants
-SIM_file = 'motor_model_updated_F21_22b.slx';
+SIM_file = 'motor_model_updated_F21_22b';
+motor_input = 'motor_model_updated_F21_22b/desiredPosition';
 GUI_file = 'GUI_Correct.mlapp';
 USB_CAM_NAME = 'USB2.0 PC CAMERA';  %name of USB camera
 
@@ -15,8 +16,12 @@ color_thresh = 30;
 
 %% main function begins
 
+%launch simulation because it's slow
+motor_model_updated_F21_22b %replace with run statement and see if works
+set_param(SIM_file, 'SimulationCommand', 'start');     %start simulation
+
 % ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
-prog_init();clea
+prog_init();
 cam = init_cam(webcamlist,USB_CAM_NAME);
 
 % Capturing and Saving BG Image
@@ -39,29 +44,30 @@ display_pic(diff,'Difference Image');
 % Color correction and recognization
 color_isolated_img = isolate_colors(difference_fname,color_thresh,state_fname);
 display_pic(color_isolated_img,'color isolated difference image');
-display_pic(im2bw(color_isolated_img,0.2),'color isolated binary image before filtering');
-imwrite(im2bw(color_isolated_img,0.2),color_iso_bin);
+display_pic(im2bw(color_isolated_img,0.1),'color isolated binary image before filtering');
+imwrite(im2bw(color_isolated_img,0.1),color_iso_bin);
 o_p_img = further_filter(color_iso_bin);
 display_pic(o_p_img,'Fully Processed Binary');
 
 % Centroid location & angle
 gameState = image_analyze(o_p_img,state_fname);
 
-
-%launch GUI
+%launch GUI and interact with simulation
 gui_app = GUI_Correct();
 color_val = gui_app.ColorSelectDropDown.Value;
-set_param('motor_model_updated_F21_22b', 'SimulationCommand', 'start');     %start simulation
-rto = get_param(gcbh,'RuntimeObject');  %Get Motor Position
+set_param(motor_input,'Value','0');
+pause(5);
+rto = get_param(gcbh,'RuntimeObject');  %Get current Motor Position
 while isvalid(gui_app)
     color_val = gui_app.ColorSelectDropDown.Value;
-    motor_angle = rto.InputPort(1).Data;                %motor position
-    desired_angle =                                     %Determine the closest color
-    set_param('motor_model_updated_F21_22b/desiredPosition','Value',int2str(desired_angle)); %update motor position here
-    pause(0.1);
+    motor_angle = round(rto.InputPort(1).Data);
+    desired_angle =  closest_color(color_val,gameState,motor_angle);
+    set_param(motor_input,'Value',int2str(desired_angle)); %update motor position here
+    pause(10);
 end
-
-set_param('motor_model_updated_F21_22b', 'SimulationCommand', 'stop'); %stop simulation
+set_param(motor_input,'Value','0');               %reset motor position
+pause(2);
+set_param(SIM_file, 'SimulationCommand', 'stop'); %stop simulation
 
 %% end main -- Functions and Descriptions Below
 
@@ -127,8 +133,8 @@ function Image_Analysis = image_analyze(Filtered_img,og_fname)
     a = length(STATS);
     state.Num_of_Shapes = a;
     
-    center_circle_x = 344;
-    center_circle_y = 239;
+    center_circle_x = 269;
+    center_circle_y = 264;
     for c = 1:a
         state(c).location = STATS(c).Centroid;
         j = round(STATS(c).Centroid(:,2));
@@ -149,9 +155,9 @@ function Image_Analysis = image_analyze(Filtered_img,og_fname)
          
         
         color_vector = Image_Orig(j,y,:);
-        if (color_vector(1) > 180) && (color_vector(2) < 120) && (color_vector(3) < 110)
+        if (color_vector(1) > 135) && (color_vector(2) < 120) && (color_vector(3) < 110)
             state(c).color = 'Red';
-        elseif (color_vector(1) < 60) && (color_vector(2) > 85) && (color_vector(3) < 120)
+        elseif (color_vector(1) < 60) && (color_vector(2) > 50) && (color_vector(3) < 120)
             state(c).color = 'Green';
         elseif (color_vector(1) < 150) && (color_vector(2) < 190) && (color_vector(3) > 150)
             state(c).color = 'Blue';
@@ -185,4 +191,19 @@ function filtered_img = further_filter(bin_pic)
     SE = strel('disk',5);
     filtered_img = imerode(input_file, SE);    
     display_pic(filtered_img,'erosion 2'); 
+end
+
+function angle = closest_color(color,state,current_position)
+    [~,entries] = size(state);
+    angle = round(current_position);
+    difference = 999;   %arbitrary impossible difference in angle
+    for i = 1:entries
+        if (strcmp(state(i).color,color) == 1)
+            new_difference = abs(current_position - state(i).Angle);
+            if (new_difference < difference)
+                difference = new_difference;
+                angle = round(state(i).Angle);
+            end
+        end
+    end
 end
