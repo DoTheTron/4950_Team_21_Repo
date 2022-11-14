@@ -193,6 +193,12 @@ function filtered_img = further_filter(bin_pic)
     display_pic(filtered_img,'erosion 2'); 
 end
 
+%{
+Matches a desired color to any found in the gamestate variable
+if there is a match, the angle to the washer's position in a clockwise 
+matter is calculated. The Washer witht the smallest angle with reference
+To the motor shaft's current position is returned
+%}
 function angle = closest_color(color,state,current_position)
     [~,entries] = size(state);
     angle = round(current_position);
