@@ -29,7 +29,7 @@ cam = init_cam(webcamlist,USB_CAM_NAME);
 %img = snapshot(cam);
 %imwrite(img,bg_filename);
 BG_img = imread(bg_filename);
-%display_pic(BG_img,'Background Image Original');
+display_pic(BG_img,'Background Image Original');
 
 % Image filtering
 new_state = snapshot(cam);
@@ -55,7 +55,6 @@ gui_app = GUI_Correct();
 color_val = gui_app.ColorSelectDropDown.Value;
 set_param(motor_input,'Value','0');
 rto = get_param(gcbh,'RuntimeObject');  %Get current Motor Position
-pause(2);
 while isvalid(gui_app)
     color_val = gui_app.ColorSelectDropDown.Value;
     desired_angle =  closest_color(color_val,gameState,round(rto.InputPort(1).Data));
@@ -64,7 +63,7 @@ while isvalid(gui_app)
         pause(0.5);
     end
     set_param(motor_input,'Value','0'); %reset motor position
-    while (strcmp(color_val,gui_app.ColorSelectDropDown.Value) ~= 1) 
+    while (strcmp(color_val,gui_app.ColorSelectDropDown.Value) == 1) 
         pause(0.1);
     end 
 end
@@ -136,8 +135,8 @@ function Image_Analysis = image_analyze(Filtered_img,og_fname)
     a = length(STATS);
     state.Num_of_Shapes = a;
     
-    center_circle_x = 269;
-    center_circle_y = 264;
+    center_circle_x = 271;
+    center_circle_y = 242;
     for c = 1:a
         state(c).location = STATS(c).Centroid;
         j = round(STATS(c).Centroid(:,2));

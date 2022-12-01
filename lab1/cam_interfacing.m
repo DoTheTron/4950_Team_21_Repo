@@ -15,8 +15,8 @@ prog_init();
 cam = init_cam(webcamlist,USB_CAM_NAME);
 
 %% Capturing and Saving BG Image
-%img = snapshot(cam);
-%imwrite(img,bg_filename);
+img = snapshot(cam);
+imwrite(img,bg_filename);
 BG_img = imread(bg_filename);
 display_pic(BG_img,'Background Image Original');
 
