@@ -17,8 +17,8 @@ color_thresh = 30;
 %% main function begins
 
 %launch simulation because it's slow
-motor_model_updated_F21_22b %replace with run statement and see if works
-set_param(SIM_file, 'SimulationCommand', 'start');     %start simulation
+%motor_model_updated_F21_22b %replace with run statement and see if works
+%set_param(SIM_file, 'SimulationCommand', 'start');     %start simulation
 
 % ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
 prog_init();
@@ -26,10 +26,11 @@ cam = init_cam(webcamlist,USB_CAM_NAME);
 
 % Capturing and Saving BG Image
 %Uncomment next two commands to save new background image
-%img = snapshot(cam);
-%imwrite(img,bg_filename);
+%save_new_image(bg_filename,cam);
 BG_img = imread(bg_filename);
-display_pic(BG_img,'Background Image Original');
+display_pic(BG_img,'Background Image');
+
+%% stop
 
 % Image filtering
 new_state = snapshot(cam);
@@ -156,7 +157,7 @@ function Image_Analysis = image_analyze(Filtered_img,og_fname)
         end
          
         
-        color_vector = Image_Orig(j,y,:);
+        color_vector = Image_Orig(j+10,y,:); %plus 10 offset because washer has hole in middle
         if (color_vector(1) > 135) && (color_vector(2) < 120) && (color_vector(3) < 110)
             state(c).color = 'Red';
         elseif (color_vector(1) < 60) && (color_vector(2) > 50) && (color_vector(3) < 120)
@@ -212,3 +213,4 @@ function angle = closest_color(color,state,current_position)
         end
     end
 end
+
