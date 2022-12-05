@@ -13,8 +13,8 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
     a = length(STATS);
     state.Num_of_Shapes = a;
     
-    center_circle_x = 272;
-    center_circle_y = 247;
+    center_circle_x = 242;
+    center_circle_y = 220;
     for c = 1:a
         state(c).location = STATS(c).Centroid;
         j = round(STATS(c).Centroid(:,2));
