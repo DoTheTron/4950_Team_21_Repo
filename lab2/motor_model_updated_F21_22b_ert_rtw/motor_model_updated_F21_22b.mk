@@ -2,7 +2,7 @@
 ## Makefile generated for component 'motor_model_updated_F21_22b'. 
 ## 
 ## Makefile     : motor_model_updated_F21_22b.mk
-## Generated on : Mon Nov 14 14:13:24 2022
+## Generated on : Mon Dec 05 19:30:51 2022
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/motor_model_updated_F21_22b.elf
 ## Product type : executable
 ## 
@@ -21,7 +21,7 @@ MAKEFILE                  = motor_model_updated_F21_22b.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2022b
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2022b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/Users/uchen/Documents/Clemson/4950/lab2
+START_DIR                 = D:/Clemson/4950/lab2
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0

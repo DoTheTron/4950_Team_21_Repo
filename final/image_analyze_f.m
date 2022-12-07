@@ -13,8 +13,8 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
     a = length(STATS);
     state.Num_of_Shapes = a;
     
-    center_circle_x = 242;
-    center_circle_y = 220;
+    center_circle_x = 259;
+    center_circle_y = 245;
     for c = 1:a
         state(c).location = STATS(c).Centroid;
         j = round(STATS(c).Centroid(:,2));
@@ -34,13 +34,13 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
         end
          
         
-        color_vector = Image_Orig(j,y,:); %plus 12 offset because washer has hole in middle
-        if (color_vector(1) > 135) && (color_vector(2) < 120) && (color_vector(3) < 110)
+        color_vector = Image_Orig(j-10,y,:); %plus 8 offset because washer has hole in middle
+        if (color_vector(1) > 45) && (color_vector(2) < 40) && (color_vector(3) < 50)
             state(c).color = 'red';
-        elseif (color_vector(1) < 60) && (color_vector(2) > 50) && (color_vector(3) < 120)
-            state(c).color = 'green';
-        elseif (color_vector(1) < 150) && (color_vector(2) < 190) && (color_vector(3) > 150)
+        elseif (color_vector(1) < 40) && (color_vector(2) < 40) && (color_vector(3) > 25)
             state(c).color = 'blue';
+        elseif (color_vector(1) < 20) && (color_vector(2) > 20) && (color_vector(3) < 50)
+            state(c).color = 'green';
         else
             state(c).color = 'yellow';
         end

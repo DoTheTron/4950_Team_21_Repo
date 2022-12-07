@@ -8,15 +8,15 @@ color_iso_bin = 'colo_bin.png';
 
 cam_width = 640;
 cam_height = 480;
-color_thresh = 30;
+color_thresh = 55;
 
 %% ECE 4950 Fall 2020 Project 2 Demo - Camera Setup
 prog_init();
 cam = init_cam(webcamlist,USB_CAM_NAME);
 
 %% Capturing and Saving BG Image
-img = snapshot(cam);
-imwrite(img,bg_filename);
+%img = snapshot(cam);
+%imwrite(img,bg_filename);
 BG_img = imread(bg_filename);
 display_pic(BG_img,'Background Image Original');
 
@@ -135,8 +135,8 @@ function Image_Analysis = image_analyze(Filtered_img,og_fname)
     a = length(STATS);
     state.Num_of_Shapes = a;
     
-    center_circle_x = 344;
-    center_circle_y = 239;
+    center_circle_x = 242;
+    center_circle_y = 220;
     for c = 1:a
         state(c).location = STATS(c).Centroid;
         j = round(STATS(c).Centroid(:,2));
@@ -172,20 +172,27 @@ end
 
 %% final image filtering
 function filtered_img = further_filter(bin_pic)
-    input_file = imread(bin_pic);
-    SE = strel('disk',6);
-    input_file = imerode(input_file, SE);
-    display_pic(input_file,'erosion 1');
-    imwrite(input_file,bin_pic);
-    
     SE = strel('disk',8);
     input_file = imread(bin_pic);
     input_file = imdilate(input_file, SE);
     display_pic(input_file,'dilation 1');
     imwrite(input_file,bin_pic);
     input_file = imread(bin_pic);
+
+    input_file = imread(bin_pic);
+    SE = strel('disk',11);
+    input_file = imerode(input_file, SE);
+    display_pic(input_file,'erosion 1');
+    imwrite(input_file,bin_pic);
     
-    SE = strel('disk',5);
+    SE = strel('disk',14);
+    input_file = imread(bin_pic);
+    input_file = imdilate(input_file, SE);
+    display_pic(input_file,'dilation 2');
+    imwrite(input_file,bin_pic);
+    input_file = imread(bin_pic);
+    
+    SE = strel('disk',8);
     filtered_img = imerode(input_file, SE);    
     display_pic(filtered_img,'erosion 2'); 
 end
