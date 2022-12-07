@@ -32,15 +32,24 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
         else
            state(c).Angle = centroid_angle;
         end
-         
         
-        color_vector = Image_Orig(j-10,y,:); %plus 8 offset because washer has hole in middle
-        if (color_vector(1) > 45) && (color_vector(2) < 40) && (color_vector(3) < 50)
+       %find first meaningful value on binary scale, since washer's center
+       %is empty
+        for i = -15:1:15
+            if (Filtered_img(j,y+i,:) == [1,1,1])
+                y = i+y;
+                break;
+            end
+        end
+
+        color_vector = Image_Orig(j,y,:); 
+
+        if (color_vector(1) > 80) && (color_vector(2) < 85) && (color_vector(3) < 110)
             state(c).color = 'red';
-        elseif (color_vector(1) < 40) && (color_vector(2) < 40) && (color_vector(3) > 25)
-            state(c).color = 'blue';
-        elseif (color_vector(1) < 20) && (color_vector(2) > 20) && (color_vector(3) < 50)
+        elseif (color_vector(1) < 75) && (color_vector(2) > 50) && (color_vector(3) < 95)
             state(c).color = 'green';
+        elseif (color_vector(1) < 75) && (color_vector(2) < 85) && (color_vector(3) > 75)
+            state(c).color = 'blue';
         else
             state(c).color = 'yellow';
         end
