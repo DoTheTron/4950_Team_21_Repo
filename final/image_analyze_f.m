@@ -46,7 +46,7 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
 
         if (color_vector(1) > 80) && (color_vector(2) < 85) && (color_vector(3) < 110)
             state(c).color = 'red';
-        elseif (color_vector(1) < 75) && (color_vector(2) > 50) && (color_vector(3) < 95)
+        elseif (color_vector(1) < 80) && (color_vector(2) > 45) && (color_vector(3) < 100)
             state(c).color = 'green';
         elseif (color_vector(1) < 75) && (color_vector(2) < 85) && (color_vector(3) > 75)
             state(c).color = 'blue';
