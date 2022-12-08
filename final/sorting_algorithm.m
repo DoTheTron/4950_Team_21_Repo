@@ -18,6 +18,10 @@ function desired_board = sorting_algorithm(snap_image, user_board)
        
         if i ~= index
             snap_image([index i]) = snap_image([i index]); %Swap
+            % find empty spot (remember indice)
+            % move 'index' to empty spot
+            % move 'i' to 'index'
+            % move empty spot to 'i'
         end
         
     end %for

@@ -15,8 +15,11 @@ function desired_board = sorting_algorithm(snap_image, user_board)
             end                              
         end
        
+       
         if i ~= index
             snap_image([index i]) = snap_image([i index]); %Swap
+            %find empty spot (remember indice)
+            %move 'index' to empty sp
         end
         
     end %for
