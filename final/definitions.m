@@ -1,6 +1,8 @@
 %% Definitions and Constants
 SIM_file            = 'motor_model_updated_F21_22b';
 motor_input         = 'motor_model_updated_F21_22b/desiredPosition';
+actuator_input      = 'motor_model_updated_F21_22b/Actuator_go';
+emag_input          = 'motor_model_updated_F21_22b/Emag_go';
 GUI_file            = 'GUI_Correct.mlapp';
 USB_CAM_NAME        = 'USB2.0 PC CAMERA';  %name of USB camera
 

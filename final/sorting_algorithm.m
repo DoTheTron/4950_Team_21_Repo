@@ -1,4 +1,4 @@
-function desired_board = sorting_algorithm(snap_image, user_board)
+function desired_board = sorting_algorithm(snap_image, user_board,motor_input,emag_input,actuator_input)
 
     listSize = numel(snap_image);
     

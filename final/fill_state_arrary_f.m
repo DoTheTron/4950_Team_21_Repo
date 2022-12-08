@@ -11,11 +11,11 @@ function complete_state = fill_state_arrary_f(gameState)
     for sector_angle = 2:entries
         for i = 1:gameState(1).Num_of_Shapes
             if ((gameState(i).Angle >= valid_angle_thresh(sector_angle-1)) && (gameState(i).Angle < valid_angle_thresh(sector_angle)))
-                state_creation(sector_angle).color = gameState(i).color;
-                state_creation(sector_angle).location = gameState(i).location;
+                state_creation(sector_angle-1).color = gameState(i).color;
+                state_creation(sector_angle-1).location = gameState(i).location;
             else
-                state_creation(sector_angle).color = 'empty';
-                state_creation(sector_angle).location = [0,0];
+                state_creation(sector_angle-1).color = 'empty';
+                state_creation(sector_angle-1).location = [0,0];
             end
         end
         state_creation(sector_angle-1).Angle = valid_angle(sector_angle-1);
