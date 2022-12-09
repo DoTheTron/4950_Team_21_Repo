@@ -35,6 +35,7 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
         
        %find first meaningful value on binary scale, since washer's center
        %is empty
+       %{
         for i = -15:1:15
             if (y+i < 1)
                 y = 1;
@@ -54,24 +55,18 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
         elseif (y+i > 480)
             y = 480;
         end
+%}
         color_vector = Image_Orig(j,y,:); 
 %         r = 1;
 %         while(1)
-            if ( ((color_vector(1)> 63) && (color_vector(1)< 255)) && color_vector(2) < 255 && color_vector(3) < 44 )
+            if ( (color_vector(1)> 127) && (color_vector(2) < 95) && (color_vector(3) < 85) )
                 state(c).color = 'red';
-                break;
-            elseif ((color_vector(1) < 40) && ((0 < color_vector(2) && color_vector(2) < 146)) && (color_vector(3) < 68))
+            elseif ((color_vector(1) < 58) && (85 < color_vector(2)) && (color_vector(3) < 100))
                 state(c).color = 'green';
-                break;
-            elseif ((color_vector(1)< 75) && (color_vector(2)< 79) && ((color_vector(3)< 255) && (color_vector(3) > 69)))
+            elseif (((color_vector(1) > 51) && (color_vector(1) < 122)) && (color_vector(2) > 116) && (color_vector(3) > 153))
                 state(c).color = 'blue';
-                break;
-           %% elseif ( (134 < color_vector(1) && color_vector(1) < 255 ) && ((color_vector(2) < 255) && (color_vector(2) > 145)) && color_vector(3) < 111)
-           %%     state(c).color = 'yellow';
-            %%    break;
             else
                 state(c).color = 'yellow';
-                break;
             end
 %         end
 
