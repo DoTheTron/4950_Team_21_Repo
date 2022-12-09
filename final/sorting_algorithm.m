@@ -9,7 +9,7 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
         
         % compare two lists
         for j = (i:listSize)    
-            if snap_image(j) == elem
+            if snap_image(j).color == elem.color
                 elem = snap_image(j);
                 index = j;
             end                              
@@ -21,7 +21,7 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
             % find first empty spot (remember indice)
             % empty = first empty spot angle
             for tempCount = 0:numEl
-                if snap_image(tempCount).color == empty 
+                if snap_image(tempCount).color == 'blank' 
                     empty = snap_image(tempCount).angle;
                     break
                 end
@@ -39,5 +39,5 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
         end
         
     end %for
-    %desired_board = snap_image;
+    desired_board = snap_image;
 end %selectionSort

@@ -4,12 +4,12 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
     
     for i = (1:listSize-1)
 
-        elem = user_board(i);
+        elem = user_board(i).color;
         index = i;
         
         % compare two lists
         for j = (i:listSize)    
-            if snap_image(j) == elem
+            if snap_image(j).color == elem
                 elem = snap_image(j);
                 index = j;
             end                              
@@ -17,18 +17,25 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
        
        
         if i ~= index
-            snap_image([index i]) = snap_image([i index]); %Swap
-            % find first empty spot (remember indice(
-            % temp = first empty spot
+            %snap_image([index i]) = snap_image([i index]); %Swap
+            % find first empty spot (remember indice)
+            % empty = first empty spot angle
+            for tempCount = 0:numEl
+                if snap_image(tempCount).color == empty 
+                    empty = snap_image(tempCount).angle;
+                    break
+                end
+            end
+
             % move 'index' to empty spot
-            pickUp(index); % pick up washer
-            drop(index); % drop at empty spot
+            pickUp(snap_image(index).angle, motor_input, actuator_input, emag_input); % pick up washer
+            drop(empty, motor_input, actuator_input, emag_input); % drop at empty spot
             % move 'i' to 'index'
-            pickUp(i); % pick up i
-            drop(index);
+            pickUp(snap_image(i).angle, motor_input, actuator_input, emag_input); % pick up i
+            drop(snap_image(index).angle, motor_input, actuator_input, emag_input);
             % move empty spot to 'i'
-            pickUp(temp);
-            drop(i);
+            pickUp(empty, motor_input, actuator_input, emag_input);
+            drop(snap_image(i).angle, motor_input, actuator_input, emag_input);
         end
         
     end %for

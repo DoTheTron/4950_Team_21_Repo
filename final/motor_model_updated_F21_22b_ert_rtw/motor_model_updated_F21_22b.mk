@@ -2,7 +2,7 @@
 ## Makefile generated for component 'motor_model_updated_F21_22b'. 
 ## 
 ## Makefile     : motor_model_updated_F21_22b.mk
-## Generated on : Fri Dec 09 12:32:45 2022
+## Generated on : Fri Dec 09 13:19:43 2022
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/motor_model_updated_F21_22b.elf
 ## Product type : executable
 ## 
@@ -18,17 +18,18 @@
 
 PRODUCT_NAME              = motor_model_updated_F21_22b
 MAKEFILE                  = motor_model_updated_F21_22b.mk
-MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2022b
-MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2022b/bin
-MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = D:/Clemson/4950/final
+MATLAB_ROOT               = /Applications/MATLAB_R2022b.app
+MATLAB_BIN                = /Applications/MATLAB_R2022b.app/bin
+MATLAB_ARCH_BIN           = $(MATLAB_BIN)/maci64
+START_DIR                 = /Users/nharris/Documents/School/ECE4950/4950_Team_21_Repo/final
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
 TGT_FCN_LIB               = None
 MODEL_HAS_DYNAMICALLY_LOADED_SFCNS = 0
 RELATIVE_PATH_TO_ANCHOR   = ..
-SLIB_PATH                 = C:/Users/uchen/DOCUME~1/MATLAB/R2022b/ARDUIN~1/ARDUIN~1/FASTER~1
+SLIB_PATH                 = /Users/nharris/Documents/MATLAB/R2022b/ArduinoStaticLibrary/ArduinoMega2560/FasterRuns
+SSLIB_PATH                = /Users/nharris/Documents/MATLAB/R2022b/ArduinoStaticLibrary/ArduinoMega2560/FasterRuns
 C_STANDARD_OPTS           = 
 CPP_STANDARD_OPTS         = 
 
@@ -56,7 +57,6 @@ CPP_STANDARD_OPTS         =
 # MACROS
 #-----------
 
-SHELL            = %SystemRoot%/system32/cmd.exe
 PRODUCT_HEX      = $(RELATIVE_PATH_TO_ANCHOR)/$(PRODUCT_NAME).hex
 PRODUCT_BIN      = $(RELATIVE_PATH_TO_ANCHOR)/$(PRODUCT_NAME).eep
 ARDUINO_TOOLS    = $(ARDUINO_ROOT)/hardware/tools/avr/bin
@@ -115,7 +115,7 @@ DOWNLOAD = "$(DOWNLOAD_PATH)/avrdude"
 EXECUTE = $(PRODUCT)
 
 # Builder: Make Tool
-MAKE_PATH = %MATLAB%\bin\win64
+MAKE_PATH = %MATLAB%/bin/maci64
 MAKE = "$(MAKE_PATH)/gmake"
 
 
@@ -194,7 +194,7 @@ BUILD_TYPE = "Top-Level Standalone Executable"
 ## INCLUDE PATHS
 ###########################################################################
 
-INCLUDES_BUILDINFO = -I$(START_DIR) -IC:/PROGRA~3/MATLAB/SUPPOR~1/R2022b/toolbox/target/SUPPOR~1/ARDUIN~2/include -IC:/PROGRA~3/MATLAB/SUPPOR~1/R2022b/toolbox/target/shared/svd/include -I$(START_DIR)/motor_model_updated_F21_22b_ert_rtw -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/common -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/default -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src -I$(MATLAB_ROOT)/toolbox/coder/rtiostream/src -I$(ARDUINO_ROOT)/hardware/arduino/avr/cores/arduino -I$(ARDUINO_ROOT)/hardware/arduino/avr/variants/mega -IC:/PROGRA~3/MATLAB/SUPPOR~1/R2022b/toolbox/target/SUPPOR~1/ARDUIN~1/include -IC:/PROGRA~3/MATLAB/SUPPOR~1/R2022b/toolbox/target/SUPPOR~1/ARDUIN~1/SCHEDU~1/include -I$(ARDUINO_ROOT)/hardware/tools/avr/avr/include/avr
+INCLUDES_BUILDINFO = -I$(START_DIR) -I/Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/include -I/Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/shared/svd/include -I$(START_DIR)/motor_model_updated_F21_22b_ert_rtw -I$(MATLAB_ROOT)/extern/include -I$(MATLAB_ROOT)/simulink/include -I$(MATLAB_ROOT)/rtw/c/src -I$(MATLAB_ROOT)/rtw/c/src/ext_mode/common -I$(MATLAB_ROOT)/rtw/c/ert -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/common -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/default -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/include -I$(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src -I$(MATLAB_ROOT)/toolbox/coder/rtiostream/src -I$(ARDUINO_ROOT)/hardware/arduino/avr/cores/arduino -I$(ARDUINO_ROOT)/hardware/arduino/avr/variants/mega -I/Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/include -I/Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/scheduler/include -I$(ARDUINO_ROOT)/hardware/tools/avr/avr/include/avr
 
 INCLUDES = $(INCLUDES_BUILDINFO)
 
@@ -215,7 +215,7 @@ DEFINES = $(DEFINES_) $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_arduino_digitalio.cpp C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWM.cpp C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWMDriver.c C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/ArduinoPinHandleMap.cpp $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_mode.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/motor_model_updated_F21_22b.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/motor_model_updated_F21_22b_data.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/rtGetInf.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/rtGetNaN.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/rt_nonfinite.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_common.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_classic_trigger.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp_standard.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp_daq.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp_calibration.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src/xcp_fifo.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src/xcp_transport.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/default/xcp_mem_default.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/default/xcp_drv_rtiostream.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/common/xcp_utils.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src/xcp_frame_serial.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_param_default_serial.c C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/MW_ArduinoHWInit.cpp C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/io_wrappers.cpp C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../scheduler/src/arduinoAVRScheduler.cpp C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/rtiostream_serial_daemon.cpp
+SRCS = /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_arduino_digitalio.cpp /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWM.cpp /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWMDriver.c /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/ArduinoPinHandleMap.cpp $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_mode.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/motor_model_updated_F21_22b.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/motor_model_updated_F21_22b_data.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/rtGetInf.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/rtGetNaN.c $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/rt_nonfinite.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_common.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_classic_trigger.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp_standard.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp_daq.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/protocol/src/xcp_calibration.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src/xcp_fifo.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src/xcp_transport.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/default/xcp_mem_default.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/platform/default/xcp_drv_rtiostream.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/common/xcp_utils.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/slave/transport/src/xcp_frame_serial.c $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext_mode/src/xcp_ext_param_default_serial.c /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/MW_ArduinoHWInit.cpp /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/io_wrappers.cpp /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../scheduler/src/arduinoAVRScheduler.cpp /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/rtiostream_serial_daemon.cpp
 
 MAIN_SRC = $(START_DIR)/motor_model_updated_F21_22b_ert_rtw/ert_main.c
 
@@ -241,7 +241,7 @@ PREBUILT_OBJS =
 ## LIBRARIES
 ###########################################################################
 
-LIBS = $(SLIB_PATH)/MW_RebuildSrc_Core.o
+LIBS = $(SSLIB_PATH)/MW_RebuildSrc_Core.o
 
 ###########################################################################
 ## SYSTEM LIBRARIES
@@ -436,19 +436,19 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-%.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.c
+%.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-%.S.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.s
+%.S.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.s
 	$(AS) $(ASFLAGS) -o "$@" "$<"
 
 
-%.S.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.S
+%.S.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.S
 	$(AS) $(ASFLAGS) -o "$@" "$<"
 
 
-%.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.cpp
+%.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/%.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -564,19 +564,19 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-MW_arduino_digitalio.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_arduino_digitalio.cpp
+MW_arduino_digitalio.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_arduino_digitalio.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-MW_PWM.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWM.cpp
+MW_PWM.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWM.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-MW_PWMDriver.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWMDriver.c
+MW_PWMDriver.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/MW_PWMDriver.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-ArduinoPinHandleMap.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/ArduinoPinHandleMap.cpp
+ArduinoPinHandleMap.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/ArduinoPinHandleMap.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
@@ -660,19 +660,19 @@ xcp_ext_param_default_serial.o : $(MATLAB_ROOT)/toolbox/coder/xcp/src/target/ext
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 
-MW_ArduinoHWInit.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/MW_ArduinoHWInit.cpp
+MW_ArduinoHWInit.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/MW_ArduinoHWInit.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-io_wrappers.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/io_wrappers.cpp
+io_wrappers.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinobase/src/io_wrappers.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-arduinoAVRScheduler.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../scheduler/src/arduinoAVRScheduler.cpp
+arduinoAVRScheduler.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../scheduler/src/arduinoAVRScheduler.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
-rtiostream_serial_daemon.o : C:/ProgramData/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/rtiostream_serial_daemon.cpp
+rtiostream_serial_daemon.o : /Users/nharris/Documents/MATLAB/SupportPackages/R2022b/toolbox/target/supportpackages/arduinotarget/registry/../src/rtiostream_serial_daemon.cpp
 	$(CPP) $(CPPFLAGS) -o "$@" "$<"
 
 
