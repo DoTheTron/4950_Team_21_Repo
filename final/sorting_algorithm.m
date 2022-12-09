@@ -28,14 +28,14 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
             end
 
             % move 'index' to empty spot
-            pickUp(snap_image(index).angle); % pick up washer
-            drop(empty); % drop at empty spot
+            pickUp(snap_image(index).angle, motor_input, actuator_input, emag_input); % pick up washer
+            drop(empty, motor_input, actuator_input, emag_input); % drop at empty spot
             % move 'i' to 'index'
-            pickUp(snap_image(i).angle); % pick up i
-            drop(snap_image(index).angle);
+            pickUp(snap_image(i).angle, motor_input, actuator_input, emag_input); % pick up i
+            drop(snap_image(index).angle, motor_input, actuator_input, emag_input);
             % move empty spot to 'i'
-            pickUp(empty);
-            drop(snap_image(i).angle);
+            pickUp(empty, motor_input, actuator_input, emag_input);
+            drop(snap_image(i).angle, motor_input, actuator_input, emag_input);
         end
         
     end %for
