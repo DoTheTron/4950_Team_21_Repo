@@ -1,4 +1,4 @@
-function desired_board = sorting_algorithm(snap_image, user_board)
+function desired_board = sorting_algorithm(snap_image, user_board,motor_input,emag_input,actuator_input)
 
     listSize = numel(snap_image);
     
@@ -18,8 +18,17 @@ function desired_board = sorting_algorithm(snap_image, user_board)
        
         if i ~= index
             snap_image([index i]) = snap_image([i index]); %Swap
-            %find empty spot (remember indice)
-            %move 'index' to empty sp
+            % find first empty spot (remember indice(
+            % temp = first empty spot
+            % move 'index' to empty spot
+            pickUp(index); % pick up washer
+            drop(index); % drop at empty spot
+            % move 'i' to 'index'
+            pickUp(i); % pick up i
+            drop(index);
+            % move empty spot to 'i'
+            pickUp(temp);
+            drop(i);
         end
         
     end %for

@@ -17,13 +17,27 @@ function desired_board = sorting_algorithm(snap_image, user_board,motor_input,em
        
        
         if i ~= index
-            snap_image([index i]) = snap_image([i index]); %Swap
-            % find empty spot (remember indice)
+            %snap_image([index i]) = snap_image([i index]); %Swap
+            % find first empty spot (remember indice)
+            % empty = first empty spot angle
+            for tempCount = 0:numEl
+                if snap_image(tempCount).color == empty 
+                    empty = snap_image(tempCount).angle;
+                    break
+                end
+            end
+
             % move 'index' to empty spot
+            pickUp(snap_image(index).angle); % pick up washer
+            drop(empty); % drop at empty spot
             % move 'i' to 'index'
+            pickUp(snap_image(i).angle); % pick up i
+            drop(snap_image(index).angle);
             % move empty spot to 'i'
+            pickUp(empty);
+            drop(snap_image(i).angle);
         end
         
     end %for
-    desired_board = snap_image;
+    %desired_board = snap_image;
 end %selectionSort

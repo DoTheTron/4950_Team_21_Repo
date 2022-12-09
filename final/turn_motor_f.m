@@ -1,5 +1,6 @@
 %{
     Move motor from current postion to desired angle
+    [0,40,-45,-90,-135,-180,-225,-270]
 %}
 function angle = turn_motor_f(motor_input,desired_angle)
     rto = get_param(gcbh,'RuntimeObject');  %Get current Motor Position
