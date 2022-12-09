@@ -40,10 +40,11 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
                 y = 1;
             elseif (y+i > 480)
                 y = 480;
+            else
+                y = y+1;
             end
             
-            if (Filtered_img(j,y+i,:) == [1,1,1])
-                y = i+y;
+            if (Filtered_img(j,y,:) == [1,1,1])
                 break;
             end
         end
@@ -54,16 +55,42 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
             y = 480;
         end
         color_vector = Image_Orig(j,y,:); 
+%         r = 1;
+%         while(1)
+            if ( ((color_vector(1)> 63) && (color_vector(1)< 255)) && color_vector(2) < 255 && color_vector(3) < 44 )
+                state(c).color = 'red';
+                break;
+            elseif ((color_vector(1) < 40) && ((0 < color_vector(2) && color_vector(2) < 146)) && (color_vector(3) < 68))
+                state(c).color = 'green';
+                break;
+            elseif ((color_vector(1)< 75) && (color_vector(2)< 79) && ((color_vector(3)< 255) && (color_vector(3) > 69)))
+                state(c).color = 'blue';
+                break;
+           %% elseif ( (134 < color_vector(1) && color_vector(1) < 255 ) && ((color_vector(2) < 255) && (color_vector(2) > 145)) && color_vector(3) < 111)
+           %%     state(c).color = 'yellow';
+            %%    break;
+            else
+                state(c).color = 'yellow';
+                break;
+            end
+%         end
 
-        if (color_vector(1)/(color_vector(1)+color_vector(2)+color_vector(3))>= 0.4)
-            state(c).color = 'red';
-        elseif (color_vector(2)/(color_vector(1)+color_vector(2)+color_vector(3))>= 0.4)
-            state(c).color = 'green';
-        elseif (color_vector(3)/(color_vector(1)+color_vector(2)+color_vector(3))>= 0.4)
+
+        %{
+        if (double(color_vector(1))/(double(color_vector(1))+double(color_vector(2))+double(color_vector(3)))>= 0.4)
+            if (double(color_vector(2))/(double(color_vector(1))+double(color_vector(2))+double(color_vector(3)))>= 0.4)
+                state(c).color = 'yellow';
+            else
+                state(c).color = 'red';
+            end
+        elseif (double(color_vector(3))/(double(color_vector(1))+double(color_vector(2))+double(color_vector(3)))>= 0.4)
             state(c).color = 'blue';
+        elseif (double(color_vector(2))/(double(color_vector(1))+double(color_vector(2))+double(color_vector(3)))>= 0.36)
+            state(c).color = 'green';
         else
             state(c).color = 'yellow';
         end
+        %}
     end
     Image_Analysis = state;
 end

@@ -5,7 +5,11 @@
 function new_state = del_deup_f(state)
     len = state.Num_of_Shapes;
     new_state = state(1);
-    new_state(1).Num_of_Shapes = 1;
+    if (len > 0)
+        new_state(1).Num_of_Shapes = 1;
+    else
+        new_state(1).Num_of_Shapes = 0;
+    end
     n = 1;
     for i=1:len
         if(abs(new_state(n).Angle-state(i).Angle) > 20)
