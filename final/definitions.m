@@ -14,4 +14,4 @@ position_param      = 0;
 
 cam_width           = 640;
 cam_height          = 480;
-color_thresh        = 30;
+color_thresh        = 50;

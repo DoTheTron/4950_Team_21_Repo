@@ -13,8 +13,8 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
     a = length(STATS);
     state.Num_of_Shapes = a;
     
-    center_circle_x = 259;
-    center_circle_y = 245;
+    center_circle_x = 245;
+    center_circle_y = 250;
     for c = 1:a
         state(c).location = STATS(c).Centroid;
         j = round(STATS(c).Centroid(:,2));
@@ -36,19 +36,30 @@ function Image_Analysis = image_analyze_f(Filtered_img,og_fname)
        %find first meaningful value on binary scale, since washer's center
        %is empty
         for i = -15:1:15
+            if (y+i < 1)
+                y = 1;
+            elseif (y+i > 480)
+                y = 480;
+            end
+            
             if (Filtered_img(j,y+i,:) == [1,1,1])
                 y = i+y;
                 break;
             end
         end
 
+        if (y < 1)
+            y = 1;
+        elseif (y+i > 480)
+            y = 480;
+        end
         color_vector = Image_Orig(j,y,:); 
 
-        if (color_vector(1) > 80) && (color_vector(2) < 85) && (color_vector(3) < 110)
+        if (color_vector(1)/(color_vector(1)+color_vector(2)+color_vector(3))>= 0.4)
             state(c).color = 'red';
-        elseif (color_vector(1) < 80) && (color_vector(2) > 45) && (color_vector(3) < 100)
+        elseif (color_vector(2)/(color_vector(1)+color_vector(2)+color_vector(3))>= 0.4)
             state(c).color = 'green';
-        elseif (color_vector(1) < 75) && (color_vector(2) < 85) && (color_vector(3) > 75)
+        elseif (color_vector(3)/(color_vector(1)+color_vector(2)+color_vector(3))>= 0.4)
             state(c).color = 'blue';
         else
             state(c).color = 'yellow';

@@ -4,7 +4,7 @@
 %}
 function complete_state = fill_state_arrary_f(gameState)
     valid_angle_thresh  = [0,40,90,140,180,210,270,300,360]; %reference to check angle's position
-    valid_angle         = [40,90,140,180,210,270,300,360]; %actual angular location of gameboard position
+    valid_angle         = [0,40,-45,-90,-135,-180,-225,-270]; %actual angular location of gameboard position
     [~,entries]         = size(valid_angle_thresh);
     state_creation      = struct('color','blank','Angle',0,'location',{});
 
